@@ -36,7 +36,7 @@ namespace YcSignatureProblem
             loggingConfig.LogMetricsFormat = LogMetricsFormatOption.JSON;
 
             var client = new AmazonS3Client(credentials, config);
-            foreach (var name in new[] { "test-file", "test file" })
+            foreach (var name in new[] { "test-object", "test object" })
             {
                 await Put(client, bucketName, name);
             }
@@ -58,7 +58,7 @@ namespace YcSignatureProblem
             }
             catch (AmazonS3Exception exception) when (exception.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
-                Console.WriteLine(Invariant($"Missing file \"{objectName}\"."));
+                Console.WriteLine(Invariant($"Missing object \"{objectName}\"."));
                 return;
             }
             catch (AmazonS3Exception exception) when (exception.StatusCode == System.Net.HttpStatusCode.Forbidden)
